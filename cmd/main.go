@@ -2,27 +2,22 @@ package main
 
 import (
 	"log/slog"
-	"net/http"
+	"os"
 
+	"github.com/behummble/1c_exporter/internal/app"
 	"github.com/behummble/1c_exporter/internal/config"
 	"github.com/behummble/1c_exporter/internal/metrics"
-	"github.com/behummble/1c_exporter/internal/app"
-
 )
 
 func main() {
-	config := config.New()
+	config := config.MustLoad()
 	log := initLog()
 	metrics := metrics.New(config, log)
-	metrics.Register()
 	app := app.New(metrics, config, log)
+	metrics.Register()
 	app.Run()
 }
 
 func initLog() *slog.Logger {
-
-}
-
-func newMetrics(lic []lic, reg *prometheus.Registry) *metrics {
-	
+	return slog.New(slog.NewJSONHandler(os.Stdout, nil))
 }

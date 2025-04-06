@@ -1,0 +1,8 @@
+server:
+  host: 127.0.0.1
+  port: 8152
+metrics: 
+  - name: "programm_lic_1C"
+    options:
+      name: "pathToLicFile"
+      value: ".././lic.json"
